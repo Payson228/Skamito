@@ -4,7 +4,7 @@
     <title>Skamito</title>
 </head>
 <body>
-<h1>Skamito | <a href="/login">Вход</a></h1><hr>
+<h1>Skamito | <a href="/login">Вход</a> <a href="/logout">Выйти</a></h1><hr>
 <h4>Товары в магазине</h4>
 <form action="/" method="get">
     Поиск по названию: <input type="text" name="title"><br>
@@ -17,7 +17,7 @@
 </#list>
 <hr>
 <h3>Выложить новый товар</h3>
-<form action="/product/create" method="post" enctype="multipart/form-data">
+<form action="/create/product" method="post" enctype="multipart/form-data">
     Название товара: <input type="text" name="title"/><br><br>
     Описание товара: <input type="text" name="description"/><br><br>
     Цена: <input type="number" name="price"/><br><br>

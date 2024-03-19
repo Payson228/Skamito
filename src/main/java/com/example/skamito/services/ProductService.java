@@ -64,6 +64,10 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
+    public Comment getCommentById(Long id) {
+        return commentRepository.findById(id).orElse(null);
+    }
+
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
@@ -72,7 +76,6 @@ public class ProductService {
         Optional<Product> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()) {
             Product product = productOptional.get();
-            // Обновляем информацию о продукте
             product.setTitle(updatedProduct.getTitle());
             product.setDescription(updatedProduct.getDescription());
             product.setPrice(updatedProduct.getPrice());
@@ -86,6 +89,19 @@ public class ProductService {
         }
     }
 
+    public void updateComment(Long commentId, Comment updatedComment) {
+        Optional<Comment> commentOptional = commentRepository.findById(commentId);
+        if (commentOptional.isPresent()) {
+            Comment comment = commentOptional.get();
+            comment.setAuthor(updatedComment.getAuthor());
+            comment.setText(updatedComment.getText());
+            commentRepository.save(comment);
+        } else {
+            // Если продукт с указанным id не найден
+            throw new IllegalArgumentException("Product with id " + commentId + " not found");
+        }
+
+    }
     public void addCommentToProduct(Long productId, Comment comment) {
         Product product = getProductById(productId);
         if (product != null) {
@@ -93,4 +109,25 @@ public class ProductService {
             commentRepository.save(comment);
         }
     }
+
+    public void deleteCommentFromProduct(Long productId, Long commentId) {
+        Product product = getProductById(productId);
+        if (product != null) {
+            Comment comment = commentRepository.findById(commentId).orElse(null);
+            if (comment != null) {
+                product.getComments().remove(comment);
+                commentRepository.delete(comment);
+            }
+        }
+    }
+
+
+
+    /*public void editCommentToProduct( Long commentId, String comment) {
+        Optional<Comment> commentOptional = commentRepository.findById(commentId);
+        if (commentOptional.isPresent()) {
+            Comment updatedcomment = commentOptional.get();
+            updatedcomment.setText(comment);
+            commentRepository.save(updatedcomment);
+        }*/
 }

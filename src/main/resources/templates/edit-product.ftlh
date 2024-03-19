@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Изменить товар</h1>
-<form action="/product/edit/${product.id}" method="post">
+<form action="/edit/product/${product.id}" method="post">
     <label for="title">Название товара:</label>
     <input type="text" id="title" name="title" value="${product.title}" required><br><br>
 
